@@ -8,7 +8,7 @@ const saveStorage = (key, val) => {
 const getStorage = key => {
   try {
     const trans = localStorage.getItem(key);
-    return trans ? JSON.parscode e(trans) : '';
+    return trans ? JSON.parse(trans) : '';
   } catch (err) {
     console.log(err);
   }
