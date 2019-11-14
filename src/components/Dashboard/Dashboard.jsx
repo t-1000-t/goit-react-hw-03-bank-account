@@ -41,30 +41,22 @@ class Dashboard extends Component {
     }
   }
 
-  handleBtnDeposit = amount => {
+  handleBtn = (amount, e) => {
     const note = {
       id: shortid.generate(),
       date: new Date().toLocaleString(),
       amount,
-      type: 'Deposit',
+      type: e.currentTarget.name,
     };
-    this.setState(state => ({
-      transactions: [note, ...state.transactions],
-      balance: (Number(state.balance) + Number(amount)).toFixed(2),
-    }));
-  };
-
-  handleBtnWithdraw = amount => {
-    const note = {
-      id: shortid.generate(),
-      date: new Date().toLocaleString(),
-      amount,
-      type: 'Withdraw',
-    };
-    this.setState(state => ({
-      transactions: [note, ...state.transactions],
-      balance: Number(state.balance) - Number(amount),
-    }));
+    note.type === 'Deposit'
+      ? this.setState(state => ({
+          transactions: [note, ...state.transactions],
+          balance: (Number(state.balance) + Number(amount)).toFixed(2),
+        }))
+      : this.setState(state => ({
+          transactions: [note, ...state.transactions],
+          balance: Number(state.balance) - Number(amount),
+        }));
   };
 
   sumType = type => {
@@ -79,8 +71,8 @@ class Dashboard extends Component {
     return (
       <div className={dashboard}>
         <Controls
-          onDeposit={this.handleBtnDeposit}
-          onWithdraw={this.handleBtnWithdraw}
+          onDeposit={this.handleBtn}
+          onWithdraw={this.handleBtn}
           onBalance={balance}
         />
         <Balance

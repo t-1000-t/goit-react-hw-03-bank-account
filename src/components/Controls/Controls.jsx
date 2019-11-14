@@ -36,7 +36,7 @@ class Controls extends Component {
     });
   };
 
-  handleBtnDeposit = () => {
+  handleBtnDeposit = e => {
     const { amount } = this.state;
 
     if (Number(amount === '0.00' || amount === '')) {
@@ -44,16 +44,20 @@ class Controls extends Component {
         position: toast.POSITION.BOTTOM_LEFT,
       });
     } else if (Number(amount) > 0) {
-      this.props.onDeposit(amount);
+      this.props.onDeposit(amount, e);
       this.reset();
+    } else {
+      toast.error('На счету недостаточно средств для проведения операции!', {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
     }
   };
 
-  handleBtnWithdraw = () => {
+  handleBtnWithdraw = e => {
     const { amount } = this.state;
     if (Number(amount) > 0 && Number(amount) <= this.props.onBalance) {
       if (Number(amount) > 0) {
-        this.props.onWithdraw(this.state.amount);
+        this.props.onWithdraw(amount, e);
         this.reset();
       }
     } else {
