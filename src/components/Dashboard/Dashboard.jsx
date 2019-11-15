@@ -51,7 +51,7 @@ class Dashboard extends Component {
     note.type === 'Deposit'
       ? this.setState(state => ({
           transactions: [note, ...state.transactions],
-          balance: (Number(state.balance) + Number(amount)).toFixed(2),
+          balance: Number(state.balance) + Number(amount),
         }))
       : this.setState(state => ({
           transactions: [note, ...state.transactions],

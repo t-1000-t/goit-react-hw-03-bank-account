@@ -19,7 +19,7 @@ class Controls extends Component {
 
   hendleChange = e => {
     this.setState({
-      amount: Number(e.currentTarget.value).toFixed(2),
+      amount: e.currentTarget.value,
     });
   };
 
