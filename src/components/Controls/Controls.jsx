@@ -38,7 +38,7 @@ class Controls extends Component {
 
   handleBtnCheckSum = e => {
     const { amount } = this.state;
-    if (Number(amount === '0.00' || amount === '')) {
+    if (Number(amount === '0' || amount === '')) {
       toast.warn('Введите сумму для проведения операции!', {
         position: toast.POSITION.BOTTOM_LEFT,
       });
