@@ -36,30 +36,29 @@ class Controls extends Component {
     });
   };
 
-  handleBtnDeposit = e => {
+  handleBtnCheckSum = e => {
     const { amount } = this.state;
-
     if (Number(amount === '0.00' || amount === '')) {
       toast.warn('Введите сумму для проведения операции!', {
         position: toast.POSITION.BOTTOM_LEFT,
       });
-    } else if (Number(amount) > 0) {
-      this.props.onDeposit(amount, e);
-      this.reset();
-    } else {
-      toast.error('На счету недостаточно средств для проведения операции!', {
+      return;
+    }
+    if (Number(amount) < 0) {
+      toast.warn('Введите значение без знака "-"!', {
         position: toast.POSITION.BOTTOM_LEFT,
       });
+      return;
     }
-  };
-
-  handleBtnWithdraw = e => {
-    const { amount } = this.state;
     if (Number(amount) > 0 && Number(amount) <= this.props.onBalance) {
       if (Number(amount) > 0) {
         this.props.onWithdraw(amount, e);
         this.reset();
       }
+    } else if (Number(amount) > 0 && e.currentTarget.name === 'Deposit') {
+      this.props.onDeposit(amount, e);
+
+      this.reset();
     } else {
       toast.error('На счету недостаточно средств для проведения операции!', {
         position: toast.POSITION.BOTTOM_LEFT,
@@ -82,14 +81,14 @@ class Controls extends Component {
             value={amount}
             placeholder="введите сумму"
           />
-          <button name="Deposit" type="button" onClick={this.handleBtnDeposit}>
+          <button name="Deposit" type="button" onClick={this.handleBtnCheckSum}>
             Deposit
           </button>
 
           <button
             name="Withdraw"
             type="button"
-            onClick={this.handleBtnWithdraw}
+            onClick={this.handleBtnCheckSum}
           >
             Withdraw
           </button>
