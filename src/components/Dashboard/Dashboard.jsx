@@ -48,15 +48,13 @@ class Dashboard extends Component {
       amount,
       type: e.currentTarget.name,
     };
-    note.type === 'Deposit'
-      ? this.setState(state => ({
-          transactions: [note, ...state.transactions],
-          balance: Number(state.balance) + Number(amount),
-        }))
-      : this.setState(state => ({
-          transactions: [note, ...state.transactions],
-          balance: Number(state.balance) - Number(amount),
-        }));
+    this.setState(state => ({
+      transactions: [note, ...state.transactions],
+      balance:
+        note.type === 'Deposit'
+          ? Number(state.balance) + Number(amount)
+          : Number(state.balance) - Number(amount),
+    }));
   };
 
   sumType = type => {
